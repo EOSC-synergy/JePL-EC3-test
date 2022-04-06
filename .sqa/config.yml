@@ -1,0 +1,31 @@
+config:
+  node_agent: 'docker_compose'
+  deploy_template: '.sqa/docker-compose.yml'
+  credentials:
+      - id: orviz-github-basic
+        username_var: GIT_USER
+        password_var: GIT_PASSWORD
+      - id: samuel-im
+        variable: IM_AUTH_FILE
+
+sqa_criteria:
+  SvcQC.Dep:
+    repos:
+      ec3:
+        container: ec3client
+        commands:
+          - ec3 launch jepl_im_cluster im -a "${IM_AUTH_FILE}" -y
+          - ec3 destroy jepl_im_cluster --force
+          - ec3 launch jepl_im_cluster kubernetes -a "${IM_AUTH_FILE}" -y
+          - ec3 destroy jepl_im_cluster --force
+          - ec3 launch jepl_im_cluster openports ubuntu-egi ubuntu-ost -a "${IM_AUTH_FILE}" -y
+          - ec3 destroy jepl_im_cluster --force
+
+#environment:
+  #JPL_DOCKERPUSH: "kubectl"
+  #JPL_IGNOREFAILURES: "defined"
+  #JPL_DOCKERFORCEBUILD: "enabled"
+  #JPL_WORKSPACEDEBUG: "true"
+  #JPL_WORKSPACEDEBUGTIMEOUT: 45
+
+#timeout: 1200
