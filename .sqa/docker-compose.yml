@@ -7,4 +7,5 @@ services:
     hostname: "ec3client"
     volumes:
      - ./templates:/etc/ec3/templates
+     - ./auth:/im/auth
     entrypoint: [/bin/sleep, infinity]
