@@ -5,9 +5,9 @@ config:
       - id: orviz-github-basic
         username_var: GIT_USER
         password_var: GIT_PASSWORD
-      - id: incd_openstack
+      - id: ifca_openstack
         variable: OPENSTACK_URL
-      - id: incd_openstack_id
+      - id: ifca_openstack_id
         username_var: OPENSTACK_USER
         password_var: OPENSTACK_PASS
       - id: upv_im_id
