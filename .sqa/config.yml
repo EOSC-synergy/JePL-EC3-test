@@ -25,6 +25,7 @@ sqa_criteria:
         commands:
           - |
             #!/bin/bash
+            sleep 5
             if [ -f /im/auth/auth.dat ]; then
               printf "$(cat /im/auth/auth.dat)" "${IM_USER}" "${IM_PASS}" ifca "${OPENSTACK_URL}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "IFCA local users" > ${IM_AUTH_FILE}
             else
