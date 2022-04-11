@@ -2,7 +2,10 @@ version: "3.7"
 
 services:
   ec3client:
-    image: "grycap/im-client:ec3"
+    build:
+      context: "."
+      dockerfile: "./Dockerfile"
+    image: "eoscsynergy/im-client-ec3:1.5.9"
     container_name: "ec3client"
     hostname: "ec3client"
     volumes:

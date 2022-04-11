@@ -5,6 +5,9 @@ config:
       - id: orviz-github-basic
         username_var: GIT_USER
         password_var: GIT_PASSWORD
+      - id: samuel-dockerhub
+        username_var: JPL_DOCKERUSER
+        password_var: JPL_DOCKERPASS
       - id: ifca_openstack
         variable: OPENSTACK_URL
       - id: ifca_openstack_id
@@ -37,7 +40,7 @@ sqa_criteria:
 
 environment:
   IM_AUTH_FILE: "/im/auth.dat"
-  #JPL_DOCKERPUSH: "kubectl"
+  JPL_DOCKERPUSH: "ec3client"
   #JPL_IGNOREFAILURES: "defined"
   #JPL_DOCKERFORCEBUILD: "enabled"
   #JPL_WORKSPACEDEBUG: "true"
