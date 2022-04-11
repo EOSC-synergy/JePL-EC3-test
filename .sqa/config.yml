@@ -43,7 +43,7 @@ environment:
   JPL_DOCKERPUSH: "ec3client"
   #JPL_IGNOREFAILURES: "defined"
   #JPL_DOCKERFORCEBUILD: "enabled"
-  #JPL_WORKSPACEDEBUG: "true"
+  JPL_WORKSPACEDEBUG: "true"
   JPL_WORKSPACEDEBUGTIMEOUT: "45"
 
 #timeout: 1200
