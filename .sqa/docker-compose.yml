@@ -2,6 +2,8 @@ version: "3.7"
 
 services:
   ec3client:
+    environment:
+     - IM_AUTH_FILE
     build:
       context: "."
       dockerfile: "./Dockerfile"
