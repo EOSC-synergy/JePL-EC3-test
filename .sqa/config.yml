@@ -32,11 +32,9 @@ sqa_criteria:
               ls -al /im/auth
               exit 1
             fi
-          - ec3 launch jepl_im_cluster im -a "${IM_AUTH_FILE}" -y
-          - ec3 destroy jepl_im_cluster --force
-          - ec3 launch jepl_im_cluster kubernetes -a "${IM_AUTH_FILE}" -y
-          - ec3 destroy jepl_im_cluster --force
-          - ec3 launch jepl_im_cluster openports ubuntu-egi ubuntu-ost -a "${IM_AUTH_FILE}" -y
+            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "api.cloud.ifca.es:5000" "a309f7ac-2198-4ecf-9fb9-ff68c2197143" "api.cloud.ifca.es:5000" "a309f7ac-2198-4ecf-9fb9-ff68c2197143" > ./ubuntu-ost.radl
+            cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
+          - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u https://appsgrycap.i3m.upv.es:31443/im/ -y
           - ec3 destroy jepl_im_cluster --force
 
 environment:
