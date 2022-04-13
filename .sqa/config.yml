@@ -27,22 +27,25 @@ sqa_criteria:
             #!/bin/bash
             sleep 5
             if [ -f /im/auth/auth.dat ]; then
-              printf "$(cat /im/auth/auth.dat)" "${IM_USER}" "${IM_PASS}" ifca "${OPENSTACK_URL}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "IFCA local users" > ${IM_AUTH_FILE}
+              printf "$(cat /im/auth/auth.dat)" "${IM_USER}" "${IM_PASS}" ifca "https://${OPENSTACK_URL}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "IFCA local users" > ${IM_AUTH_FILE}
             else
               ls -al /im/auth
               exit 1
             fi
-            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "api.cloud.ifca.es:5000" "a309f7ac-2198-4ecf-9fb9-ff68c2197143" "api.cloud.ifca.es:5000" "a309f7ac-2198-4ecf-9fb9-ff68c2197143" > ./ubuntu-ost.radl
+            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
-          - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u https://appsgrycap.i3m.upv.es:31443/im/ -y
+          - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u ${IM_SERVER} -y
           - ec3 destroy jepl_im_cluster --force
 
 environment:
   IM_AUTH_FILE: "/im/auth.dat"
+  IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143"
+  IM_SERVER: "https://appsgrycap.i3m.upv.es:31443/im/"
   JPL_DOCKERPUSH: "ec3client"
   #JPL_IGNOREFAILURES: "defined"
   #JPL_DOCKERFORCEBUILD: "enabled"
   #JPL_WORKSPACEDEBUG: "true"
   #JPL_WORKSPACEDEBUGTIMEOUT: "45"
 
+# Timeout after no activity in logs for this configuration (not the absolute duration)
 #timeout: 1200
