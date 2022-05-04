@@ -14,5 +14,5 @@ services:
     hostname: "ec3client"
     volumes:
      - ./templates:/etc/ec3/templates
-     - ./auth:/im/auth
+     - ${JENKINS_AUTH_FILE}:${IM_AUTH_FILE}
     entrypoint: [/bin/sleep, infinity]

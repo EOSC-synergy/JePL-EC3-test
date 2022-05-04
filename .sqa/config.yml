@@ -10,12 +10,9 @@ config:
         password_var: JPL_DOCKERPASS
       - id: ifca_openstack
         variable: OPENSTACK_URL
-      - id: ifca_openstack_id
-        username_var: OPENSTACK_USER
-        password_var: OPENSTACK_PASS
-      - id: upv_im_id
-        username_var: IM_USER
-        password_var: IM_PASS
+      - id: ifca-auth.dat
+        type: file
+        variable: JENKINS_AUTH_FILE
 
 sqa_criteria:
   SvcQC.Dep:
@@ -25,13 +22,6 @@ sqa_criteria:
         commands:
           - |
             #!/bin/bash
-            sleep 5
-            if [ -f /im/auth/auth.dat ]; then
-              printf "$(cat /im/auth/auth.dat)" "${IM_USER}" "${IM_PASS}" ifca "https://${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "IFCA local users" > ${IM_AUTH_FILE}
-            else
-              ls -al /im/auth
-              exit 1
-            fi
             printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
           - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u ${IM_SERVER} -y
