@@ -22,6 +22,8 @@ sqa_criteria:
         commands:
           - |
             #!/bin/bash
+            echo "Check auth.dat file:"
+            ls -al "${IM_AUTH_FILE}"
             printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}:${OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}:${OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
           - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u ${IM_SERVER} -y
