@@ -8,7 +8,7 @@ config:
       - id: samuel-dockerhub
         username_var: JPL_DOCKERUSER
         password_var: JPL_DOCKERPASS
-      - id: ifca_openstack
+      - id: incd_openstack
         variable: OPENSTACK_URL
       - id: ifca-auth.dat
         type: file
