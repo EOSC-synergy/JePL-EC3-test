@@ -8,9 +8,9 @@ config:
       - id: samuel-dockerhub
         username_var: JPL_DOCKERUSER
         password_var: JPL_DOCKERPASS
-      - id: ifca_openstack
+      - id: incd_openstack
         variable: OPENSTACK_URL
-      - id: ifca_openstack_id
+      - id: incd_openstack_id
         username_var: OPENSTACK_USER
         password_var: OPENSTACK_PASS
       - id: upv_im_id
@@ -25,21 +25,29 @@ sqa_criteria:
         commands:
           - |
             #!/bin/bash
-            sleep 5
-            if [ -f /im/auth/auth.dat ]; then
-              printf "$(cat /im/auth/auth.dat)" "${IM_USER}" "${IM_PASS}" ifca "https://${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "IFCA local users" > ${IM_AUTH_FILE}
+            if [ -f ${IM_AUTH_FILE} ]; then
+              printf "$(cat ${IM_AUTH_FILE})" "${IM_USER}" "${IM_PASS}" ifca "https://${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "eosc-synergy" "default" > ${IM_AUTH_FILE}
             else
               ls -al /im/auth
               exit 1
             fi
-            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}:{OPENSTACK_ID_PORT}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
+            echo "Check auth.dat file:"
+            ls -al "${IM_AUTH_FILE}"
+            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
+            echo "Printing radl file"
+            cat ./ubuntu-ost.radl
+            echo
             cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
           - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u ${IM_SERVER} -y
-          - ec3 destroy jepl_im_cluster --force
+          - ec3 show jepl_im_cluster -r
+          - |
+            #!/bin/bash
+            echo y | ec3 destroy jepl_im_cluster --force
 
 environment:
-  IM_AUTH_FILE: "/im/auth.dat"
-  IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143"
+  IM_AUTH_FILE: "/im/auth/auth.dat"
+  #IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143" # IFCA Image ID
+  IM_IMAGE_ID: "4266a328-0c0e-4aa7-9087-b868882d39cb" # INCD Image ID
   IM_SERVER: "https://appsgrycap.i3m.upv.es:31443/im/"
   OPENSTACK_ID_PORT: "5000"
   JPL_DOCKERPUSH: "ec3client"
@@ -49,4 +57,4 @@ environment:
   #JPL_WORKSPACEDEBUGTIMEOUT: "45"
 
 # Timeout after no activity in logs for this configuration (not the absolute duration)
-#timeout: 1200
+timeout: 1800
