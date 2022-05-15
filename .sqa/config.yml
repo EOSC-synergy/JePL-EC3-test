@@ -46,8 +46,8 @@ sqa_criteria:
 
 environment:
   IM_AUTH_FILE: "/im/auth/auth.dat"
-  #IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143" # IFCA Image ID
-  IM_IMAGE_ID: "4266a328-0c0e-4aa7-9087-b868882d39cb" # INCD Image ID
+  IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143" # IFCA Image ID
+  #IM_IMAGE_ID: "4266a328-0c0e-4aa7-9087-b868882d39cb" # INCD Image ID
   IM_SERVER: "https://appsgrycap.i3m.upv.es:31443/im/"
   OPENSTACK_ID_PORT: "5000"
   JPL_DOCKERPUSH: "ec3client"
