@@ -8,9 +8,9 @@ config:
       - id: samuel-dockerhub
         username_var: JPL_DOCKERUSER
         password_var: JPL_DOCKERPASS
-      - id: incd_openstack
+      - id: ifca_openstack
         variable: OPENSTACK_URL
-      - id: incd_openstack_id
+      - id: ifca_openstack_id
         username_var: OPENSTACK_USER
         password_var: OPENSTACK_PASS
       - id: upv_im_id
@@ -26,7 +26,7 @@ sqa_criteria:
           - |
             #!/bin/bash
             if [ -f ${IM_AUTH_FILE} ]; then
-              printf "$(cat ${IM_AUTH_FILE})" "${IM_USER}" "${IM_PASS}" incd "https://${OPENSTACK_URL}:${OPENSTACK_ID_PORT}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "eosc-synergy" "default" > ${IM_AUTH_FILE}
+              printf "$(cat ${IM_AUTH_FILE})" "${IM_USER}" "${IM_PASS}" ifca "https://${OPENSTACK_URL}:${OPENSTACK_ID_PORT}" "${OPENSTACK_USER}" "${OPENSTACK_PASS}" "VO:eosc-synergy.eu" "0432c17d955e4c8d8ab7db0384536d4e" "IFCA" "3.x_password" > ${IM_AUTH_FILE}
             else
               ls -al /im/auth
               exit 1
@@ -42,7 +42,7 @@ sqa_criteria:
           - ec3 show jepl_im_cluster -r
           - |
             #!/bin/bash
-            echo y | ec3 destroy jepl_im_cluster --force
+            ec3 destroy jepl_im_cluster --force -y
 
 environment:
   IM_AUTH_FILE: "/im/auth/auth.dat"
