@@ -4,7 +4,6 @@ services:
   ec3client:
     environment:
      - IM_AUTH_FILE
-     - IM_IMAGE_ID
      - IM_SERVER
      - OPENSTACK_URL
      - OPENSTACK_USER
