@@ -40,9 +40,7 @@ sqa_criteria:
             cp ./ubuntu-ost.radl /etc/ec3/templates/ubuntu-ost.radl
           - ec3 launch jepl_im_cluster kubernetes ubuntu-ost -a "${IM_AUTH_FILE}" -u ${IM_SERVER} -y
           - ec3 show jepl_im_cluster -r
-          - |
-            #!/bin/bash
-            ec3 destroy jepl_im_cluster --force -y
+          - ec3 destroy jepl_im_cluster --force -y
 
 environment:
   IM_AUTH_FILE: "/im/auth/auth.dat"
