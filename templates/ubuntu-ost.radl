@@ -6,7 +6,7 @@ description ubuntu-openstack (
 
 system front (
     disk.0.os.name = 'linux' and
-    disk.0.image.url = 'ost://%s/%s'
+    disk.0.image.url = 'ost://api.cloud.ifca.es/a309f7ac-2198-4ecf-9fb9-ff68c2197143'
 )
 
 system wn (
