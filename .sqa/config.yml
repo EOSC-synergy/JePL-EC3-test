@@ -33,6 +33,9 @@ sqa_criteria:
             fi
             echo "Check auth.dat file:"
             ls -al "${IM_AUTH_FILE}"
+            echo "-------------"
+            cat "${IM_AUTH_FILE}"
+            echo "-------------"
             printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             echo "Printing radl file"
             cat ./ubuntu-ost.radl
