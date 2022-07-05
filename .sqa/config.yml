@@ -36,7 +36,7 @@ sqa_criteria:
             echo "-------------"
             cat "${IM_AUTH_FILE}"
             echo "-------------"
-            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
+            printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${IM_IMAGE_ID}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             echo "Printing radl file"
             cat ./ubuntu-ost.radl
             echo
