@@ -6,11 +6,11 @@ description ubuntu-openstack (
 
 system front (
     disk.0.os.name = 'linux' and
-    disk.0.image.url = 'ost:///api.cloud.ifca.es/%s'
+    disk.0.image.url = 'ost://api.cloud.ifca.es/%s'
 )
 
 system wn (
     ec3_max_instances = 10 and # maximum number of working nodes in the cluster
     disk.0.os.name = 'linux' and
-    disk.0.image.url = 'ost:///api.cloud.ifca.es/%s'
+    disk.0.image.url = 'ost://api.cloud.ifca.es/%s'
 )
