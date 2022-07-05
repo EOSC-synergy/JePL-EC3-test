@@ -8,8 +8,8 @@ config:
       - id: samuel-dockerhub
         username_var: JPL_DOCKERUSER
         password_var: JPL_DOCKERPASS
-      - id: ifca_openstack
-        variable: OPENSTACK_URL
+      # - id: ifca_openstack
+      #   variable: OPENSTACK_URL
       - id: ifca_openstack_id
         username_var: OPENSTACK_USER
         password_var: OPENSTACK_PASS
@@ -33,9 +33,7 @@ sqa_criteria:
             fi
             echo "Check auth.dat file:"
             ls -al "${IM_AUTH_FILE}"
-            echo "-------------"
             cat "${IM_AUTH_FILE}"
-            echo "-------------"
             printf "$(cat /etc/ec3/templates/ubuntu-ost.radl)" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" "${OPENSTACK_URL}" "${IM_IMAGE_ID}" > ./ubuntu-ost.radl
             echo "Printing radl file"
             cat ./ubuntu-ost.radl
@@ -50,6 +48,7 @@ environment:
   IM_IMAGE_ID: "a309f7ac-2198-4ecf-9fb9-ff68c2197143" # IFCA Image ID
   #IM_IMAGE_ID: "4266a328-0c0e-4aa7-9087-b868882d39cb" # INCD Image ID
   IM_SERVER: "https://appsgrycap.i3m.upv.es:31443/im/"
+  OPENSTACK_URL: "api.cloud.ifca.es" # IFCA Openstack endpoint
   OPENSTACK_ID_PORT: "5000"
   #JPL_DOCKERPUSH: "ec3client"
   #JPL_IGNOREFAILURES: "defined"
